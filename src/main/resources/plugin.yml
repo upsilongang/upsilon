@@ -1,0 +1,7 @@
+name: upsilon
+version: ${project.version}
+main: org.upsilongang.upsilon.Upsilon
+api-version: 1.17
+authors: [ square, super, speed ]
+description: All the way up.
+website: https://github.com/upsilongang
