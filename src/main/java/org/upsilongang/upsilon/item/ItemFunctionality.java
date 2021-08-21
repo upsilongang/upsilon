@@ -1,8 +1,15 @@
 package org.upsilongang.upsilon.item;
 
-public interface ItemFunctionality
+public abstract class ItemFunctionality
 {
-    default String getDescription(UpsilonItem instance)
+    private final UpsilonItem instance;
+
+    public ItemFunctionality(UpsilonItem instance)
+    {
+        this.instance = instance;
+    }
+
+    public String getDescription()
     {
         return null;
     }

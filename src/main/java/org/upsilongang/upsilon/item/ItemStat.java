@@ -1,6 +1,7 @@
 package org.upsilongang.upsilon.item;
 
 import org.bukkit.Material;
+import org.upsilongang.upsilon.Rarity;
 import org.upsilongang.upsilon.item.special.Silon;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +15,7 @@ public enum ItemStat
     private final Rarity rarity;
     private final Material material;
     private final ItemGrouping grouping;
-    private final ItemFunctionality funct;
+    private final Class<? extends ItemFunctionality> funct;
 
     ItemStat(String name, Rarity rarity, Material material, ItemGrouping grouping, Class<? extends ItemFunctionality> funct)
     {
@@ -22,19 +23,7 @@ public enum ItemStat
         this.rarity = rarity;
         this.material = material;
         this.grouping = grouping;
-        if (funct == null)
-            this.funct = null;
-        else
-        {
-            try
-            {
-                this.funct = funct.getConstructor().newInstance();
-            }
-            catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
+        this.funct = funct;
     }
 
     ItemStat(String name, Rarity rarity, Material material, Class<? extends ItemFunctionality> funct)
@@ -72,9 +61,18 @@ public enum ItemStat
         return grouping;
     }
 
-    public ItemFunctionality getFunctionality()
+    public ItemFunctionality getFunctionality(UpsilonItem instance)
     {
-        return funct;
+        if (funct == null)
+            return null;
+        try
+        {
+            return funct.getConstructor(UpsilonItem.class).newInstance(instance);
+        }
+        catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException ex)
+        {
+            return null;
+        }
     }
 
     public static ItemStat getStat(String name)

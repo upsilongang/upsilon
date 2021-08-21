@@ -3,6 +3,7 @@ package org.upsilongang.upsilon;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.upsilongang.upsilon.command.CommandHandler;
 import org.upsilongang.upsilon.command.UpItemCommand;
+import org.upsilongang.upsilon.command.UpSpellCommand;
 import org.upsilongang.upsilon.util.UpsilonLogger;
 
 public final class Upsilon extends JavaPlugin
@@ -36,6 +37,7 @@ public final class Upsilon extends JavaPlugin
     {
         ch = new CommandHandler();
         ch.add(new UpItemCommand());
+        ch.add(new UpSpellCommand());
         int amount = ch.getCommandAmount();
         UpsilonLogger.info("Loaded " + amount + " command" + (amount != 1 ? "s" : "") + ".");
     }

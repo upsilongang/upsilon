@@ -1,4 +1,4 @@
-package org.upsilongang.upsilon.item;
+package org.upsilongang.upsilon;
 
 import org.bukkit.ChatColor;
 
@@ -32,5 +32,17 @@ public enum Rarity
     public String getBoldedColor()
     {
         return color + "" + ChatColor.BOLD;
+    }
+
+    public static Rarity getRarity(String name)
+    {
+        try
+        {
+            return valueOf(name.toUpperCase());
+        }
+        catch (IllegalArgumentException ex)
+        {
+            return null;
+        }
     }
 }
